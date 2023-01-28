@@ -4,7 +4,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 const Message = ({ message }) => {
   const [user] = useAuthState(auth);
-  console.log(message.avatar);
+
   return (
     <div
       className={`chat-bubble ${message.uid === user.uid ? "right" : ""}`}>
@@ -12,6 +12,7 @@ const Message = ({ message }) => {
         className="chat-bubble__left"
         src={message.avatar}
         alt="user avatar"
+        referrerPolicy="no-referrer"
       />
       <div className="chat-bubble__right">
         <p className="user-name">{message.name}</p>

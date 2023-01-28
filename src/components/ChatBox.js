@@ -1,3 +1,7 @@
+//import React from "react";
+import Message from "./Message";
+import SendMessage from "./SendMessage";
+//import { useEffect, useState } from "react";
 import React, { useEffect, useRef, useState } from "react";
 import {
   query,
@@ -7,20 +11,18 @@ import {
   limit,
 } from "firebase/firestore";
 import { db } from "../firebase";
-import Message from "./Message";
-import SendMessage from "./SendMessage";
 
 const ChatBox = () => {
   const [messages, setMessages] = useState([]);
   const scroll = useRef();
-
+  
   useEffect(() => {
     const q = query(
       collection(db, "messages"),
       orderBy("createdAt"),
       limit(50)
     );
-
+    
     const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
       let messages = [];
       QuerySnapshot.forEach((doc) => {
@@ -38,9 +40,10 @@ const ChatBox = () => {
           <Message key={message.id} message={message} />
         ))}
       </div>
+      <SendMessage />
       {/* when a new message enters the chat, the screen scrolls dowwn to the scroll div */}
-      <span ref={scroll}></span>
-      <SendMessage scroll={scroll} />
+   <span ref={scroll}></span>
+   <SendMessage scroll={scroll} />
     </main>
   );
 };
